@@ -20,7 +20,8 @@ router.post('/register', function(req, res, next) {
     var brand=req.body.brand;
     var type=req.body.type;
     var vender_name=req.body.vender_name;
-  
+    console.log(req.body.product_code);
+
     var newProduct=new Product({
         product_code: product_code,
         name: name,
@@ -29,11 +30,11 @@ router.post('/register', function(req, res, next) {
         vender_name: vender_name
     });
 
-    User.saveProduct(newProduct,function(err,product) {
-        if(err) throw err
+    Product.saveProduct(newProduct,function(err,product) {
+        if(err) throw err;
     })
 
-    res.status(201);
+    res.status(201).json(newProduct);
 });
 
 
