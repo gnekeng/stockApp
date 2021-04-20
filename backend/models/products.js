@@ -44,3 +44,13 @@ module.exports.getProductsByType = function (type, callback) {
 module.exports.saveProduct = function (newProduct, callback) {
   newProduct.save(callback);
 };
+
+module.exports.deleteProduct = function (obj_id, callback) {
+
+  console.log("String: " + typeof obj_id)
+  console.log(""+ obj_id);
+  Product.findByIdAndRemove(obj_id);
+  console.log(obj_id);
+};
+
+// module.exports.searchProductByObj_id

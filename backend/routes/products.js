@@ -37,5 +37,12 @@ router.post('/register', function(req, res, next) {
     res.status(201).json(newProduct);
 });
 
+router.delete('/delete', function(req, res, next) {
+    var obj_id = req.body.obj_id;
+    Product.deleteProduct(obj_id,function(err){
+        if(err) throw err;
+    });
+    res.status(200).json('deleted');
+});
 
 module.exports = router;
