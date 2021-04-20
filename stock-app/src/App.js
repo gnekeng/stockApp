@@ -1,11 +1,12 @@
 import './App.css';
 import Navbar from './components/Navbar'
-import axios from 'axios';
+import ProductList from './components/ProductList'
 
 function App() {
   return (
     <div className="App">
       <Navbar />
+      <ProductList />
     </div>
   );
 }
