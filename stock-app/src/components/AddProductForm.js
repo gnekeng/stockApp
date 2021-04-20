@@ -20,17 +20,23 @@ const AddProductForm = () => {
       console.log('Product Type: ' + productData.type);
       console.log('Vender Name: ' + productData.venderName);
 
-      // axios.post(`https://salty-meadow-43376.herokuapp.com/products/register`, {productData})
-      // .then(res => {
-      //    console.log(res);
-      //    console.log(res.data);
-      // })
-      axios.get(`https://salty-meadow-43376.herokuapp.com/products/all`)
+      const newProduct = {
+         product_code: productData.productCode,
+         name: productData.name,
+         brand: productData.brand,
+         type: productData.type,
+         vender_name: productData.venderName,
+      };
+
+      // console.log(newProduct);
+
+      axios.post(`https://salty-meadow-43376.herokuapp.com/products/register`, newProduct)
       .then(res => {
-         console.log(res)
-         console.log(res.data)
-      })
-   }
+         console.log(res);
+         console.log(res.data);
+      });
+   
+   };
 
    const myChangeHandler = (event) => {
       let key = event.target.name;
@@ -39,7 +45,7 @@ const AddProductForm = () => {
          ...productData,
          [key]: val
       });
-   }
+   };
 
    return (
       <form onSubmit={e => {mySubmitHandler(e)}}>

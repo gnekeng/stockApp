@@ -1,10 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
-import AddProductForm from './components/AddProductForm.js';
+import Navbar from './components/Navbar'
+import ProductList from './components/ProductList'
+import AddProductForm from './components/AddProductForm'
 
 function App() {
   return (
-    <AddProductForm></AddProductForm>
+    <div className="App">
+      <Navbar />
+      <ProductList />
+      <AddProductForm />
+    </div>
   );
 }
 
