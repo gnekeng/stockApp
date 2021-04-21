@@ -46,10 +46,10 @@ function ProductList() {
             <h3 className="card-title">{product.name}</h3>
             <p className="card-text">{product.brand}</p>
             <button
-              className="btn btn-primary"
+              className="btn btn-primary float-end"
               onClick={(e) => removeProductById(product, e)}
             >
-              Go Away
+              DELETE
             </button>
           </div>
         </div>
@@ -61,7 +61,9 @@ function ProductList() {
     }
   }
 
-  return rows;
+  return (
+    <div className="container">{rows}</div>
+  )
 }
 
 export default ProductList;
