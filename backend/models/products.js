@@ -45,12 +45,13 @@ module.exports.saveProduct = function (newProduct, callback) {
   newProduct.save(callback);
 };
 
-module.exports.deleteProduct = function (obj_id, callback) {
-
-  console.log("String: " + typeof obj_id)
-  console.log(""+ obj_id);
-  Product.findByIdAndRemove(obj_id);
-  console.log(obj_id);
+module.exports.deleteProduct = function (product_code, callback) {
+  var query = {
+    product_code: product_code
+}
+  Product.deleteOne(query, callback);
 };
 
-// module.exports.searchProductByObj_id
+module.exports.deleteProductByID = function (oid, callback) {
+  Product.findByIdAndDelete(oid, callback);
+};
