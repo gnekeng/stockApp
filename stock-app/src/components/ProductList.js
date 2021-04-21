@@ -14,22 +14,22 @@ function ProductList() {
         }
       });
   }, []);
-  const handleRemove = (product) => {
-    const url = `https://salty-meadow-43376.herokuapp.com/products/all/${product._id}`;
+  // const handleRemove = (product) => {
+  //   const url = `https://salty-meadow-43376.herokuapp.com/products/all/${product._id}`;
 
-    axios
-      .delete(url)
-      .then((res) => {
-        this.setState((previousState) => {
-          return {
-            movies: previousState.movies.filter((m) => m.id !== movie.id),
-          };
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //   axios
+  //     .delete(url)
+  //     .then((res) => {
+  //       this.setState((previousState) => {
+  //         return {
+  //           movies: previousState.movies.filter((m) => m.id !== movie.id),
+  //         };
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const rows = [];
   let cards = [];
