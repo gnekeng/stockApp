@@ -12,7 +12,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Mongodb Connect Error'));
 
 var productSchema = mongoose.Schema({
-  product_id: {
+  product_code: {
     type: String
   },
   name: {
@@ -24,26 +24,33 @@ var productSchema = mongoose.Schema({
   type: {
     type: String
   },
-  vender_id: {
+  vender_name: {
     type: String
   }
 });
 var Product = module.exports = mongoose.model('products', productSchema);
 
 module.exports.getProducts = function (callback, limit) {
-    Product.find(callback).limit(limit);
+  Product.find(callback).limit(limit);
 };
 
 module.exports.getProductsByType = function (type, callback) {
-    var query = {
-        type: type
-      }
-      Product.find(query, callback);
+  var query = {
+      type: type
+  }
+  Product.find(query, callback);
 };
 
 module.exports.saveProduct = function (newProduct, callback) {
-  var query = {
-      type: type
-    }
-    Product.find(query, callback);
+  newProduct.save(callback);
 };
+
+module.exports.deleteProduct = function (obj_id, callback) {
+
+  console.log("String: " + typeof obj_id)
+  console.log(""+ obj_id);
+  Product.findByIdAndRemove(obj_id);
+  console.log(obj_id);
+};
+
+// module.exports.searchProductByObj_id

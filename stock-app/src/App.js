@@ -1,6 +1,7 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
+import AddProductForm from "./components/AddProductForm";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <div className="container">
         <ProductList />
       </div>
+      <AddProductForm />
     </div>
   );
 }
