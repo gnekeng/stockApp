@@ -14,16 +14,17 @@ function ProductList() {
         }
       });
   }, []);
-  const removeProductById = (id, e) => {
-    console.log(id)
-    const url = `https://salty-meadow-43376.herokuapp.com/products/delete/`;
-
+  const removeProductById = (product, e) => {
+    const url = `https://salty-meadow-43376.herokuapp.com/products/deleteByID`;
+    const data = {
+      data:{
+        oid: product._id,
+      }
+    }
     axios
-      .delete(url, id)
+      .delete(url, data)
       .then((res) => {
-        console.log("deleted", id);
         console.log(res);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -46,7 +47,7 @@ function ProductList() {
             <p className="card-text">{product.brand}</p>
             <button
               className="btn btn-primary"
-              onClick={(e) => removeProductById(product._id, e)}
+              onClick={(e) => removeProductById(product, e)}
             >
               Go Away
             </button>
