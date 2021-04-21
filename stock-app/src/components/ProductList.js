@@ -14,22 +14,21 @@ function ProductList() {
         }
       });
   }, []);
-  // const handleRemove = (product) => {
-  //   const url = `https://salty-meadow-43376.herokuapp.com/products/all/${product._id}`;
+  const removeProductById = (id, e) => {
+    console.log(id)
+    const url = `https://salty-meadow-43376.herokuapp.com/products/delete/`;
 
-  //   axios
-  //     .delete(url)
-  //     .then((res) => {
-  //       this.setState((previousState) => {
-  //         return {
-  //           movies: previousState.movies.filter((m) => m.id !== movie.id),
-  //         };
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+    axios
+      .delete(url, id)
+      .then((res) => {
+        console.log("deleted", id);
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const rows = [];
   let cards = [];
@@ -47,13 +46,10 @@ function ProductList() {
             <p className="card-text">{product.brand}</p>
             <button
               className="btn btn-primary"
-              onClick={(e) => this.removeProductById(e, product)}
+              onClick={(e) => removeProductById(product._id, e)}
             >
               Go Away
             </button>
-            <a href="/" className="btn btn-primary">
-              Go Away
-            </a>
           </div>
         </div>
       </div>
