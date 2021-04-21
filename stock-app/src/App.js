@@ -1,14 +1,17 @@
 import './App.css';
 import Navbar from './components/Navbar'
 import ProductList from './components/ProductList'
-import AddProductForm from './components/AddProductForm'
+import { BrowserRouter } from 'react-router-dom' 
+import Routing from './routes'
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <ProductList />
-      <AddProductForm />
+      <BrowserRouter>
+        <Routing />
+      </BrowserRouter>
     </div>
   );
 }
