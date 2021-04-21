@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from 'react';
 import axios from 'axios';
-
 const AddProductForm = () => {
 
    const [productData, setProductData] = useState({
@@ -48,20 +47,39 @@ const AddProductForm = () => {
    };
 
    return (
-      <form onSubmit={e => {mySubmitHandler(e)}}>
-         <h1>Product {productData.productCode}</h1>
-         <p>Product Code:</p>
-         <input type='text' name='productCode' onChange={e => {myChangeHandler(e)}} />
-         <p>Product Name:</p>
-         <input type='text' name='name' onChange={e => {myChangeHandler(e)}} />
-         <p>Product Brand:</p>
-         <input type='text' name='brand' onChange={e => {myChangeHandler(e)}} />
-         <p>Product Type:</p>
-         <input type='text' name='type' onChange={e => {myChangeHandler(e)}} />
-         <p>Vender Name:</p>
-         <input type='text' name='venderName' onChange={e => {myChangeHandler(e)}} />
-         <input type='submit' />
-      </form>
+      <div>
+         {/* <Navbar /> */}
+         <form onSubmit={e => {mySubmitHandler(e)}} 
+         style={{width: '80%', marginLeft: '5%', marginRight: '5%'}}>
+            <h1>Add New Product</h1>
+            <div class='form-group'>
+               <p>Product Code:</p>
+               <input type='text' name='productCode' class='form-control'
+               onChange={e => {myChangeHandler(e)}} />
+            </div>
+            <div class='form-group'>
+               <p>Product Name:</p>
+               <input type='text' name='name' class='form-control'
+               onChange={e => {myChangeHandler(e)}} />
+            </div>
+            <div class='form-group'>
+               <p>Product Brand:</p>
+               <input type='text' name='brand' class='form-control'
+               onChange={e => {myChangeHandler(e)}} />
+            </div>
+            <div class='form-group'>
+               <p>Product Type:</p>
+               <input type='text' name='type' class='form-control' 
+               onChange={e => {myChangeHandler(e)}} />
+            </div>
+            <div class='form-group'>
+               <p>Vender Name:</p>
+               <input type='text' name='venderName' class='form-control' 
+               onChange={e => {myChangeHandler(e)}} />
+            </div>
+            <button type='submit' class='btn btn-primary' style={{margin: '2%'}}>Submit</button>
+         </form>
+      </div>
    );
 };
 
