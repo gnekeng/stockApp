@@ -38,8 +38,16 @@ router.post('/register', function(req, res, next) {
 });
 
 router.delete('/delete', function(req, res, next) {
-    var obj_id = req.body.obj_id;
-    Product.deleteProduct(obj_id,function(err){
+    var product_code = req.body.product_code;
+    Product.deleteProduct(product_code,function(err){
+        if(err) throw err;
+    });
+    res.status(200).json('deleted');
+});
+
+router.delete('/deleteByID', function(req, res, next) {
+    var oid = req.body.oid;
+    Product.deleteProductByID(oid,function(err){
         if(err) throw err;
     });
     res.status(200).json('deleted');
