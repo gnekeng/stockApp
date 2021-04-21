@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-
+import clickImage from "../images/plus.png";
+import productImgae from "../images/img_snow.jpg";
+import AddProductForm from "./AddProductForm";
+import Modal from "react-modal";
 import axios from "axios";
 
 function ProductList() {
@@ -17,10 +20,10 @@ function ProductList() {
   const removeProductById = (product, e) => {
     const url = `https://salty-meadow-43376.herokuapp.com/products/deleteByID`;
     const data = {
-      data:{
+      data: {
         oid: product._id,
-      }
-    }
+      },
+    };
     axios
       .delete(url, data)
       .then((res) => {
@@ -30,11 +33,10 @@ function ProductList() {
         console.log(err);
       });
   };
-
+  const [modal, setModal] = useState(false);
   const rows = [];
   let cards = [];
   for (const [index, product] of productList.entries()) {
-    console.log("start loop", index);
     cards.push(
       <div className="col-4 mr-auto" key={product._id}>
         <div className="card" style={{ marginTop: "20px" }}>
@@ -42,9 +44,10 @@ function ProductList() {
             <span className="float-start">{product.type}</span>
             <span className="float-end">{product.product_code}</span>
           </div>
+          <img src={productImgae} className="card-img-top" />
           <div className="card-body">
             <h3 className="card-title">{product.name}</h3>
-            <p className="card-text">{product.brand}</p>
+            <p className="card-text">Brand: {product.brand}</p>
             <button
               className="btn btn-primary float-end"
               onClick={(e) => removeProductById(product, e)}
@@ -55,15 +58,45 @@ function ProductList() {
         </div>
       </div>
     );
-    if ((index % 2 === 0 && index !== 0) || index === productList.length - 1) {
+    if (index % 3 === 2) {
       rows.push(<div className="row">{cards}</div>);
       cards = [];
     }
+    if (index === productList.length - 1) {
+      cards.push(
+        <div className="col-4 mr-auto">
+          <img
+            src={clickImage}
+            onClick={() => handleOpenModal()}
+            className="img-thumbnail click-image"
+            alt="addProduct"
+          />
+        </div>
+      );
+      rows.push(<div className="row">{cards}</div>);
+    }
   }
 
+  const AddProduct = () => {
+    console.log("Click");
+  };
+
+  const handleOpenModal = () => {
+    setModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setModal(false);
+  };
   return (
-    <div className="container">{rows}</div>
-  )
+    <div>
+      <div className="container p-3 my-3 border">{rows}</div>;
+      <Modal isOpen={modal}>
+        <AddProductForm/>
+        <button onClick={handleCloseModal}>Close Modal</button>
+      </Modal>
+    </div>
+  );
 }
 
 export default ProductList;
