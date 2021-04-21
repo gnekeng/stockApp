@@ -7,7 +7,7 @@ router.get('/all', async function(req, res, next) {
     try{
         let products = await Product.getProducts();
         res.status(200).json({
-            messsage: "success",
+            success: true,
             data: {
                 products
             }
@@ -23,10 +23,9 @@ router.get('/id/:id', async function(req, res) {
         let product = await Product.getProductById(req.params.id);
 
         res.status(200).json({
-            messsage: "success",
-            data: {
-                product
-            }
+            success: true,
+            data: product
+
         })
     }catch (e){
         console.log(e);
