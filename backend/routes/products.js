@@ -1,9 +1,9 @@
-var express = require("express");
-var router = express.Router();
-var Product = require("../models/products");
+const express = require("express");
+const router = express.Router();
+const Product = require("../models/products");
 
 //GET ALL PRODUCTs
-router.get("/all", async function (req, res, next) {
+router.get("/all", async (req, res, next) => {
   try {
     let products = await Product.getProducts();
     res.status(200).json({
@@ -16,7 +16,7 @@ router.get("/all", async function (req, res, next) {
 });
 
 //GET PRODUCT BY ID
-router.get("/id/:id", async function (req, res) {
+router.get("/id/:id", async (req, res, next) => {
   try {
     let product = await Product.getProductById(req.params.id);
 
@@ -36,7 +36,7 @@ router.get("/id/:id", async function (req, res) {
 //   });
 // });
 
-router.post("/postproduct", async function (req, res, next) {
+router.post("/postproduct", async (req, res, next) => {
   let product_code = req.body.product_code;
   let name = req.body.name;
   let brand = req.body.brand;
@@ -44,7 +44,7 @@ router.post("/postproduct", async function (req, res, next) {
   let vender_name = req.body.vender_name;
   console.log(req.body.product_code);
 
-  var newProduct = new Product({
+  let newProduct = new Product({
     product_code: product_code,
     name: name,
     brand: brand,
@@ -63,7 +63,7 @@ router.post("/postproduct", async function (req, res, next) {
 });
 
 //DELETE BY PRODUCT_CODE
-router.delete("/delete", async function (req, res, next) {
+router.delete("/delete", async (req, res, next) => {
   try {
     await Product.deleteProduct(req.body.product_code);
     res.status(200).json({
@@ -75,7 +75,7 @@ router.delete("/delete", async function (req, res, next) {
 });
 
 //DELETE BY ID
-router.delete("/deleteByID", async function (req, res, next) {
+router.delete("/deleteByID", async (req, res, next) => {
   try {
     let product = await Product.deleteProductByID(req.body.id);
     if (product === "err arg passed") {

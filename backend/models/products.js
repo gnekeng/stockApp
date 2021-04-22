@@ -1,20 +1,10 @@
-var mongo = require("mongodb");
-var mongoose = require("mongoose");
-var mongoDB =
-  "mongodb+srv://node-rest-user:nexthop@projectcluster.vidjs.gcp.mongodb.net/StockDB?retryWrites=true&w=majority";
-
-mongoose
-  .connect(mongoDB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .catch((error) => handleError(error));
+const mongoose = require("mongoose");
 
 //Connect
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Mongodb Connect Error"));
 
-var productSchema = mongoose.Schema({
+const productSchema = mongoose.Schema({
   product_code: {
     type: String,
   },
