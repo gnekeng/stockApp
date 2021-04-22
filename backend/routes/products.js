@@ -8,7 +8,7 @@ router.get('/all', async function(req, res, next) {
         let products = await Product.getProducts();
         res.status(200).json({
             success: true,
-            data: product
+            data: products
         })
     }catch (e){
         console.log(e);
