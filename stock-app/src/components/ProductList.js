@@ -13,7 +13,7 @@ function ProductList() {
       .get("https://salty-meadow-43376.herokuapp.com/products/all")
       .then((res) => {
         if (res.status === 200) {
-          setProductList(res.data);
+          setProductList(res.data['data']);
         }
       });
   }, []);
@@ -36,7 +36,9 @@ function ProductList() {
   const [modal, setModal] = useState(false);
   const rows = [];
   let cards = [];
+  let key = ""
   for (const [index, product] of productList.entries()) {
+    key = key + product._id
     cards.push(
       <div className="col-4 mr-auto" key={product._id}>
         <div className="card" style={{ marginTop: "20px" }}>
@@ -44,7 +46,7 @@ function ProductList() {
             <span className="float-start">{product.type}</span>
             <span className="float-end">{product.product_code}</span>
           </div>
-          <img src={productImgae} className="card-img-top" />
+          <img src={productImgae} className="card-img-top" alt="productImage"/>
           <div className="card-body">
             <h3 className="card-title">{product.name}</h3>
             <p className="card-text">Brand: {product.brand}</p>
@@ -59,8 +61,9 @@ function ProductList() {
       </div>
     );
     if (index % 3 === 2) {
-      rows.push(<div className="row">{cards}</div>);
+      rows.push(<div className="row" key={key}>{cards}</div>);
       cards = [];
+      key = ""
     }
     if (index === productList.length - 1) {
       cards.push(
@@ -73,13 +76,9 @@ function ProductList() {
           />
         </div>
       );
-      rows.push(<div className="row">{cards}</div>);
+      rows.push(<div className="row" key={key}>{cards}</div>);
     }
   }
-
-  const AddProduct = () => {
-    console.log("Click");
-  };
 
   const handleOpenModal = () => {
     setModal(true);
@@ -93,7 +92,7 @@ function ProductList() {
       <div className="container p-3 my-3 border">{rows}</div>;
       <Modal isOpen={modal}>
         <AddProductForm/>
-        <button onClick={handleCloseModal}>Close Modal</button>
+        <button onClick={handleCloseModal} className="float-end">Close Modal</button>
       </Modal>
     </div>
   );
