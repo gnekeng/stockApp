@@ -29,12 +29,12 @@ router.get("/id/:id", async function (req, res) {
   }
 });
 
-//GET BY TYPE
-router.get("/type/:typeName", function (req, res, next) {
-  Product.getProductsByType(req.params.typeName, function (err, products) {
-    res.status(200).json(products);
-  });
-});
+// //GET BY TYPE
+// router.get("/type/:typeName", function (req, res, next) {
+//   Product.getProductsByType(req.params.typeName, function (err, products) {
+//     res.status(200).json(products);
+//   });
+// });
 
 router.post("/postproduct", async function (req, res, next) {
   let product_code = req.body.product_code;
@@ -62,6 +62,7 @@ router.post("/postproduct", async function (req, res, next) {
   }
 });
 
+//DELETE BY PRODUCT_CODE
 router.delete("/delete", async function (req, res, next) {
   try {
     await Product.deleteProduct(req.body.product_code);
@@ -73,6 +74,7 @@ router.delete("/delete", async function (req, res, next) {
   }
 });
 
+//DELETE BY ID
 router.delete("/deleteByID", async function (req, res, next) {
   try {
     let product = await Product.deleteProductByID(req.body.id);
@@ -80,7 +82,7 @@ router.delete("/deleteByID", async function (req, res, next) {
       res.status(200).json({
         success: false,
         err:
-          "Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters",
+          "Argument passed in must be a single String of 12 bytes or a string of 24 hex characters",
       });
     } else if (product !== null) {
       res.status(200).json({
