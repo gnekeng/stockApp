@@ -37,12 +37,12 @@ router.get('/type/:typeName', function(req, res, next) {
     });
 });
 
-router.post('/register', function(req, res, next) {
-    var product_code=req.body.product_code;
-    var name=req.body.name;
-    var brand=req.body.brand;
-    var type=req.body.type;
-    var vender_name=req.body.vender_name;
+router.post('/postproduct', async function(req, res, next) {
+    let product_code=req.body.product_code;
+    let name=req.body.name;
+    let brand=req.body.brand;
+    let type=req.body.type;
+    let vender_name=req.body.vender_name;
     console.log(req.body.product_code);
 
     var newProduct=new Product({
@@ -53,11 +53,23 @@ router.post('/register', function(req, res, next) {
         vender_name: vender_name
     });
 
-    Product.saveProduct(newProduct,function(err,product) {
-        if(err) throw err;
-    })
+    try{
+        let product = await Product.saveProduct(newProduct)
 
-    res.status(201).json(newProduct);
+        res.status(200).json({
+            success: true,
+            data: newProduct
+
+        })
+    }catch (e){
+        console.log(e);
+    }
+
+    // Product.saveProduct(newProduct,function(err,product) {
+    //     if(err) throw err;
+    // })
+
+    // res.status(201).json(newProduct);
 });
 
 router.delete('/delete', function(req, res, next) {

@@ -58,8 +58,8 @@ module.exports.getProductsByType = function (type, callback) {
   Product.find(query, callback).catch(err => console.error(`Failed to find documents: ${err}`))
 };
 
-module.exports.saveProduct = function (newProduct, callback) {
-  newProduct.save(callback);
+module.exports.saveProduct = function (newProduct) {
+  newProduct.save();
 };
 
 module.exports.deleteProduct = function (product_code, callback) {
