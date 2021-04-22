@@ -2,24 +2,47 @@ var express = require('express');
 var router = express.Router();
 var Product = require('../models/products');
 
-router.get('/all', function(req, res, next) {
-    Product.getProducts(function(err,products){
-        res.status(200).json(products);
-    });
+//GET ALL PRODUCTs
+router.get('/all', async function(req, res, next) {
+    try{
+        let products = await Product.getProducts();
+        res.status(200).json({
+            success: true,
+            data: products
+        })
+    }catch (e){
+        console.log(e);
+    }
 });
 
+//GET PRODUCT BY ID
+router.get('/id/:id', async function(req, res) {
+    try{
+        let product = await Product.getProductById(req.params.id);
+
+        res.status(200).json({
+            success: true,
+            data: product
+
+        })
+    }catch (e){
+        console.log(e);
+    }
+});
+
+//GET BY TYPE
 router.get('/type/:typeName', function(req, res, next) {
     Product.getProductsByType(req.params.typeName, function(err,products) {
         res.status(200).json(products);
     });
 });
 
-router.post('/register', function(req, res, next) {
-    var product_code=req.body.product_code;
-    var name=req.body.name;
-    var brand=req.body.brand;
-    var type=req.body.type;
-    var vender_name=req.body.vender_name;
+router.post('/postproduct', async function(req, res, next) {
+    let product_code=req.body.product_code;
+    let name=req.body.name;
+    let brand=req.body.brand;
+    let type=req.body.type;
+    let vender_name=req.body.vender_name;
     console.log(req.body.product_code);
 
     var newProduct=new Product({
@@ -30,11 +53,23 @@ router.post('/register', function(req, res, next) {
         vender_name: vender_name
     });
 
-    Product.saveProduct(newProduct,function(err,product) {
-        if(err) throw err;
-    })
+    try{
+        let product = await Product.saveProduct(newProduct)
 
-    res.status(201).json(newProduct);
+        res.status(200).json({
+            success: true,
+            data: newProduct
+
+        })
+    }catch (e){
+        console.log(e);
+    }
+
+    // Product.saveProduct(newProduct,function(err,product) {
+    //     if(err) throw err;
+    // })
+
+    // res.status(201).json(newProduct);
 });
 
 router.delete('/delete', function(req, res, next) {
@@ -47,6 +82,7 @@ router.delete('/delete', function(req, res, next) {
 
 router.delete('/deleteByID', function(req, res, next) {
     var oid = req.body.oid;
+
     Product.deleteProductByID(oid,function(err){
         if(err) throw err;
     });

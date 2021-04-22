@@ -1,11 +1,12 @@
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-var mongoDB = "mongodb+srv://iceman951:Iceman0811@projectcluster.vidjs.gcp.mongodb.net/StockDB?retryWrites=true&w=majority";
+var mongoDB = "mongodb+srv://node-rest-user:nexthop@projectcluster.vidjs.gcp.mongodb.net/StockDB?retryWrites=true&w=majority";
 
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-})
+}).catch(error => handleError(error));
+
 
 //Connect
 var db = mongoose.connection;
@@ -30,19 +31,35 @@ var productSchema = mongoose.Schema({
 });
 var Product = module.exports = mongoose.model('products', productSchema);
 
-module.exports.getProducts = function (callback, limit) {
-  Product.find(callback).limit(limit);
+module.exports.getProducts = async function () {
+  try{
+    let result = await Product.find()
+    return result;
+  }catch(e){
+    console.log(e);
+    return e;
+  }
+};
+
+module.exports.getProductById = async function (id) {
+  try{
+    let result = await Product.findById(id)
+    return result;
+  }catch(e){
+    console.log(e);
+    return e;
+  }
 };
 
 module.exports.getProductsByType = function (type, callback) {
   var query = {
       type: type
   }
-  Product.find(query, callback);
+  Product.find(query, callback).catch(err => console.error(`Failed to find documents: ${err}`))
 };
 
-module.exports.saveProduct = function (newProduct, callback) {
-  newProduct.save(callback);
+module.exports.saveProduct = function (newProduct) {
+  newProduct.save();
 };
 
 module.exports.deleteProduct = function (product_code, callback) {
@@ -53,5 +70,13 @@ module.exports.deleteProduct = function (product_code, callback) {
 };
 
 module.exports.deleteProductByID = function (oid, callback) {
-  Product.findByIdAndDelete(oid, callback);
+  Product.findByIdAndDelete(oid, function (err, oid) {
+    if (err){
+        console.log(err)
+    }
+    else{
+        console.log("Deleted : ", oid);
+    }
+  });
+
 };
