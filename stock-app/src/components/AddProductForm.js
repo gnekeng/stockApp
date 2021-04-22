@@ -29,7 +29,7 @@ const AddProductForm = () => {
 
       // console.log(newProduct);
 
-      axios.post(`https://salty-meadow-43376.herokuapp.com/products/register`, newProduct)
+      axios.post(`https://salty-meadow-43376.herokuapp.com/products/postproduct`, newProduct)
       .then(res => {
          console.log(res);
          console.log(res.data);
